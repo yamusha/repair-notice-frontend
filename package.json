@@ -20,6 +20,7 @@
     "cogo-toast": "^4.2.3",
     "cookie": "^0.4.1",
     "cookie-cutter": "^0.2.0",
+    "cors": "^2.8.5",
     "create-react-class": "^15.7.0",
     "dayjs": "^1.10.4",
     "enquire.js": "^2.1.6",

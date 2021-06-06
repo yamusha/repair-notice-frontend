@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import Head from "next/head";
 import Link from "next/link";
+import schools2 from 'constants/optschools.json'
 import {
   Row,
   Col,
@@ -32,7 +33,7 @@ import { API_URL, NEXT_URL } from "config";
 
 import Swal from "sweetalert2";
 
-const addNotice = ({schools}) => {
+const addNotice = () => {
   const { register, handleSubmit, reset, errors } = useForm();
   const router = useRouter();
 
@@ -45,7 +46,7 @@ const addNotice = ({schools}) => {
     school_name: ""
   });
 
-  // console.log(schools);
+  // console.log(schools2);
 
   const options = [
     { value: "DLTV", label: "DLTV" },
@@ -319,7 +320,7 @@ const addNotice = ({schools}) => {
                             name="school"
                             styles={customStyles}
                             // defaultValue={options[0]}
-                            options={schools}
+                            options={schools2}
                             onChange={(e) => setValues({...values, school: e.value, school_name: e.label})}
                             // {...register("users", { required: true })}
                             placeholder="เลือกโรงเรียน"
@@ -429,9 +430,6 @@ const addNotice = ({schools}) => {
 };
 
 export async function getStaticProps() {
-  const res = await fetch(`${NEXT_URL}/api/getstaticsch`);
-  const schools = await res.json();
-
   const pageChangeHeaderTitle = "แจ้งซ่อมใหม่";
 
   const breadcrumbChange = [
@@ -441,7 +439,7 @@ export async function getStaticProps() {
 
   // const paths = events.map((evt) => ({ params: { slug: evt.slug } }));
   return {
-    props: { schools, pageChangeHeaderTitle, breadcrumbChange  },
+    props: {  pageChangeHeaderTitle, breadcrumbChange  },
     revalidate: 30
   };
 }
