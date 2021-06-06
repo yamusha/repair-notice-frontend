@@ -14,21 +14,18 @@ const MENU = [
     icon: () => <FontAwesomeIcon icon={SolidIcon.faDesktop} />,
     // addon: () => <Badge variant="success">new</Badge>,
     link: "/",
-    auth: 'normal',
     all: true
   },  
   {
     title: "แจ้งซ่อม",
     icon: () => <FontAwesomeIcon icon={SolidIcon.faTools} />,
     link: "/add",
-    auth: 'normal',
     all: true
   },
   {
     title: "ผู้ดูแลระบบ",
     icon: () => <FontAwesomeIcon icon={SolidIcon.faSignInAlt} />,
     link: "/login",
-    auth: 'normal',
     all: false,
     auth: false
   },
@@ -36,7 +33,6 @@ const MENU = [
     title: "จัดการคำขอ",
     icon: () => <FontAwesomeIcon icon={SolidIcon.faListAlt} />,
     link: "/admin",
-    auth: 'admin',
     all: false,
     auth: true
 

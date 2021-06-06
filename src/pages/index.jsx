@@ -261,7 +261,7 @@ const repairPage = ({ notices, notices1, notices2, notices3, page, total }) => {
                             <Form.Group row>
                               <Col sm="8" lg="9" className="text-right">
                                 <Modal7
-                                  imgClick={notice.image.formats.medium.url}
+                                  imgClick={notice.image.formats.small.url}
                                 />
                               </Col>
                             </Form.Group>

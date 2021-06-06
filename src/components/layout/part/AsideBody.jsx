@@ -95,40 +95,40 @@ class AsideBodyComponent extends React.Component {
   }
   
 
-  handleLinkClick = (selfRoute, parentRoute) => {
-    let states = this.state
+  // handleLinkClick = (selfRoute, parentRoute) => {
+  //   let states = this.state
 
-    // Check whether the link has child
-    if (states[selfRoute].hasChild) {
-      // Toggle active state
-      states[selfRoute].active = !states[selfRoute].active
+  //   // Check whether the link has child
+  //   if (states[selfRoute].hasChild) {
+  //     // Toggle active state
+  //     states[selfRoute].active = !states[selfRoute].active
 
-      // Check whether the link has parent
-      if (parentRoute.length > 0) {
-        let selfheight = states[selfRoute].height
-        let parentHeight = states[parentRoute].height
+  //     // Check whether the link has parent
+  //     if (parentRoute.length > 0) {
+  //       let selfheight = states[selfRoute].height
+  //       let parentHeight = states[parentRoute].height
 
-        // Adjust the parent elements height
-        if (states[selfRoute].active) {
-          states[parentRoute].height = parentHeight + selfheight
-        } else {
-          states[parentRoute].height = parentHeight - selfheight
-        }
-      }
-    } else {
-      // Deactivate all links
-      for (const selfRoute in states) {
-        if (!states[selfRoute].hasChild) {
-          states[selfRoute].active = false
-        }
-      }
+  //       // Adjust the parent elements height
+  //       if (states[selfRoute].active) {
+  //         states[parentRoute].height = parentHeight + selfheight
+  //       } else {
+  //         states[parentRoute].height = parentHeight - selfheight
+  //       }
+  //     }
+  //   } else {
+  //     // Deactivate all links
+  //     for (const selfRoute in states) {
+  //       if (!states[selfRoute].hasChild) {
+  //         states[selfRoute].active = false
+  //       }
+  //     }
 
-      // Activate clicked link
-      states[selfRoute].active = true
-    }
+  //     // Activate clicked link
+  //     states[selfRoute].active = true
+  //   }
 
-    this.setState(states)
-  }
+  //   this.setState(states)
+  // }
 
   addDataToObject = (object, identifier, value) => {
     return {
@@ -200,7 +200,6 @@ class AsideBodyComponent extends React.Component {
             let Icon = menu.icon
             let parentRoute = []
             let selfRoute = [index1]
-            let hasChild = Boolean(menu.child)
             let state = this.state[selfRoute]
             let show = false
             
@@ -250,91 +249,10 @@ class AsideBodyComponent extends React.Component {
                   addon={menu.addon}
                   bullet={menu.bullet}
                   active={state.active}
-                  hasChild={hasChild}
                   onClick={() => this.handleLinkClick(selfRoute, parentRoute)}
                   innerRef={ref => this.linkRefs.push(ref)}
                   children={menu.title}
                 />
-
-                {/* Check whether the node has child */}
-                {hasChild ? (
-                  <Menu.Submenu
-                    data-level={0}
-                    data-route={selfRoute}
-                    active={state.active}
-                    height={state.height}
-                    innerRef={ref => this.submenuRefs.push(ref)}
-                  >
-                    {/* Loop the second level MENU object tree */}
-                    {menu.child.map((menu, index2) => {
-                      // Set all variables needed
-                      let Icon = menu.icon
-                      let parentRoute = [index1]
-                      let selfRoute = [index1, index2]
-                      let hasChild = Boolean(menu.child)
-                      let state = this.state[selfRoute]
-
-                      return (
-                        <Menu.Item key={index2}>
-                          <AsideBodyMenuLink
-                            key={index2}
-                            data-route={selfRoute}
-                            data-level={1}
-                            link={menu.link}
-                            icon={Icon ? <Icon /> : false}
-                            addon={menu.addon}
-                            bullet={menu.bullet}
-                            active={state.active}
-                            hasChild={hasChild}
-                            onClick={() => this.handleLinkClick(selfRoute, parentRoute)}
-                            innerRef={ref => this.linkRefs.push(ref)}
-                            children={menu.title}
-                          />
-
-                          {/* Check whether the node has child */}
-                          {hasChild ? (
-                            <Menu.Submenu
-                              data-level={1}
-                              data-route={selfRoute}
-                              active={state.active}
-                              height={state.height}
-                              innerRef={ref => this.submenuRefs.push(ref)}
-                            >
-                              {/* Loop the third level MENU object tree */}
-                              {menu.child.map((menu, index3) => {
-                                // Set all variables needed
-                                let Icon = menu.icon
-                                let parentRoute = [index1, index2]
-                                let selfRoute = [index1, index2, index3]
-                                let hasChild = Boolean(menu.child)
-                                let state = this.state[selfRoute]
-
-                                return (
-                                  <Menu.Item key={index3}>
-                                    <AsideBodyMenuLink
-                                      key={index3}
-                                      data-route={selfRoute}
-                                      data-level={2}
-                                      link={menu.link}
-                                      icon={Icon ? <Icon /> : false}
-                                      addon={menu.addon}
-                                      bullet={menu.bullet}
-                                      active={state.active}
-                                      hasChild={hasChild}
-                                      onClick={() => this.handleLinkClick(selfRoute, parentRoute)}
-                                      innerRef={ref => this.linkRefs.push(ref)}
-                                      children={menu.title}
-                                    />
-                                  </Menu.Item>
-                                )
-                              })}
-                            </Menu.Submenu>
-                          ) : null}
-                        </Menu.Item>
-                      )
-                    })}
-                  </Menu.Submenu>
-                ) : null}
               </Menu.Item>
             )
           })}

@@ -155,42 +155,45 @@ const addNotice = () => {
     //   console.log(res);
 
     //   // Reset field
-      reset();
+      // reset();
 
     //   // Reset Image Field
-      setImgUrl("");
+      // setImgUrl("");
 
-      const lineNotice = `${NEXT_URL}/api/linenotice?school=${values.school_name}`;
-      await axios.post(lineNotice)
-      let timerInterval;
-        Swal.fire({
-          html: "บันทึกข้อมูลเรียบร้อยแล้ว <b></b>",
-          timer: 1000,
-          timerProgressBar: true,
-          background: '#19191a',
-          allowEscapeKey: false,
-            allowOutsideClick: false,
-          didOpen: () => {
-            Swal.showLoading();
-            timerInterval = setInterval(() => {
-              const content = Swal.getContent();
-              if (content) {
-                const b = content.querySelector("b");
-                if (b) {
-                  b.textContent = Swal.getTimerLeft();
-                }
-              }
-            }, 1000);
-          },
-          willClose: () => {
-            clearInterval(timerInterval);
-          },
-        }).then((result) => {
-          if (result.dismiss === Swal.DismissReason.timer) {
-            // Set context
-            router.push("/");
-          }
-        });
+      const lineNotice = `${API_URL2}/line/${values.school_name}`;
+      await axios.get(lineNotice)
+
+      // const lineNotice = `${NEXT_URL}/api/linenotice?school=${values.school_name}`;
+      // await axios.post(lineNotice)
+      // let timerInterval;
+      //   Swal.fire({
+      //     html: "บันทึกข้อมูลเรียบร้อยแล้ว <b></b>",
+      //     timer: 1000,
+      //     timerProgressBar: true,
+      //     background: '#19191a',
+      //     allowEscapeKey: false,
+      //       allowOutsideClick: false,
+      //     didOpen: () => {
+      //       Swal.showLoading();
+      //       timerInterval = setInterval(() => {
+      //         const content = Swal.getContent();
+      //         if (content) {
+      //           const b = content.querySelector("b");
+      //           if (b) {
+      //             b.textContent = Swal.getTimerLeft();
+      //           }
+      //         }
+      //       }, 1000);
+      //     },
+      //     willClose: () => {
+      //       clearInterval(timerInterval);
+      //     },
+      //   }).then((result) => {
+      //     if (result.dismiss === Swal.DismissReason.timer) {
+      //       // Set context
+      //       router.push("/");
+      //     }
+      //   });
 
       
 
