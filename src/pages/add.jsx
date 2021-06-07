@@ -75,15 +75,48 @@ const addNotice = () => {
     })
   }
 
-    // useEffect(() => {
-    //   console.log(values);
-    // }, [values])
+    useEffect(() => {
+    //   Swal.fire(
+    //   'Good job!',
+    //   'You clicked the button!',
+    //   'success'
+    // )
+    // let timerInterval;
+    //     Swal.fire({
+    //       html: "บันทึกข้อมูลเรียบร้อยแล้ว <b></b>",
+    //       timer: 1000,
+    //       timerProgressBar: true,
+    //       background: '#19191a',
+    //       allowEscapeKey: false,
+    //         allowOutsideClick: false,
+    //       didOpen: () => {
+    //         Swal.showLoading();
+    //         timerInterval = setInterval(() => {
+    //           const content = Swal.getContent();
+    //           if (content) {
+    //             const b = content.querySelector("b");
+    //             if (b) {
+    //               b.textContent = Swal.getTimerLeft();
+    //             }
+    //           }
+    //         }, 1000);
+    //       },
+    //       willClose: () => {
+    //         clearInterval(timerInterval);
+    //       },
+    //     }).then((result) => {
+    //       if (result.dismiss === Swal.DismissReason.timer) {
+    //         // Set context
+    //         router.push("/");
+    //       }
+    //     });
+    }, [])
 
   const onSubmit = async (data) => {
     // data.preventDefault()
-    console.log(data);
-    console.log(values);
-    console.log(image);
+    // console.log(data);
+    // console.log(values);
+    // console.log(image);
 
     const hasEmptyFields = Object.values(values).some(
       (element) => element === ""
@@ -117,8 +150,10 @@ const addNotice = () => {
 
     const apiUrl = `${API_URL2}/repair-notices`;
     const resp = await axios.post(apiUrl, formData);
+      
     // console.log(resp);
     if (resp.status === 200) {
+      
       // alert('a')
       if (image.size > 0) {
         // alert(resp.data.id)
@@ -132,12 +167,49 @@ const addNotice = () => {
         console.log(res2);
       }
 
-      //   const formData = new FormData()
-      // formData.append('files', image)
-      // formData.append('ref', 'events')
-      // formData.append('refId', evtId)
-      // formData.append('field', 'image')
+      let timerInterval;
+        Swal.fire({
+          html: "บันทึกข้อมูลเรียบร้อยแล้ว <b></b>",
+          timer: 1000,
+          timerProgressBar: true,
+          background: '#19191a',
+          allowEscapeKey: false,
+            allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading();
+            timerInterval = setInterval(() => {
+              const content = Swal.getContent();
+              if (content) {
+                const b = content.querySelector("b");
+                if (b) {
+                  b.textContent = Swal.getTimerLeft();
+                }
+              }
+            }, 1000);
+          },
+          willClose: () => {
+            clearInterval(timerInterval);
+          },
+        }).then((result) => {
+          if (result.dismiss === Swal.DismissReason.timer) {
+            // Set context
+            router.push("/");
+          }
+        });
+        router.push("/")
+        
+    //   Swal.fire(
+    //   'Good job!',
+    //   'You clicked the button!',
+    //   'success'
+    // )
     }
+
+    // Swal.fire(
+    //   'Good job!',
+    //   'You clicked the button!',
+    //   'success'
+    // )
     // console.log(resp)
 
     // alert(resp.data.message)
@@ -160,40 +232,12 @@ const addNotice = () => {
     //   // Reset Image Field
       // setImgUrl("");
 
-      const lineNotice = `${API_URL2}/line/${values.school_name}`;
-      await axios.get(lineNotice)
+      // const lineNotice = `${API_URL2}/line/${values.school_name}`;
+      // await axios.get(lineNotice)
 
       // const lineNotice = `${NEXT_URL}/api/linenotice?school=${values.school_name}`;
       // await axios.post(lineNotice)
-      // let timerInterval;
-      //   Swal.fire({
-      //     html: "บันทึกข้อมูลเรียบร้อยแล้ว <b></b>",
-      //     timer: 1000,
-      //     timerProgressBar: true,
-      //     background: '#19191a',
-      //     allowEscapeKey: false,
-      //       allowOutsideClick: false,
-      //     didOpen: () => {
-      //       Swal.showLoading();
-      //       timerInterval = setInterval(() => {
-      //         const content = Swal.getContent();
-      //         if (content) {
-      //           const b = content.querySelector("b");
-      //           if (b) {
-      //             b.textContent = Swal.getTimerLeft();
-      //           }
-      //         }
-      //       }, 1000);
-      //     },
-      //     willClose: () => {
-      //       clearInterval(timerInterval);
-      //     },
-      //   }).then((result) => {
-      //     if (result.dismiss === Swal.DismissReason.timer) {
-      //       // Set context
-      //       router.push("/");
-      //     }
-      //   });
+      
 
       
 

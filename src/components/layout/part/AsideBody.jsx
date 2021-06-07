@@ -41,7 +41,7 @@ class AsideBodyComponent extends React.Component {
         states = this.addDataToObject(states, [index1], {
           active: true,
           height: "auto",
-          hasChild: true
+          // hasChild: true
         })
 
         // Loop the second level child node
@@ -52,7 +52,7 @@ class AsideBodyComponent extends React.Component {
             states = this.addDataToObject(states, [index1, index2], {
               active: true,
               height: "auto",
-              hasChild: true
+              // hasChild: true
             })
 
             // Loop the third level child node
@@ -60,7 +60,7 @@ class AsideBodyComponent extends React.Component {
               // Add data to states variables
               states = this.addDataToObject(states, [index1, index2, index3], {
                 active: menu.link === this.props.router.pathname,
-                hasChild: false
+                // hasChild: false
               })
 
               // Add data to submenuActive variables
@@ -73,7 +73,7 @@ class AsideBodyComponent extends React.Component {
             // Add data to states variables
             states = this.addDataToObject(states, [index1, index2], {
               active: menu.link === this.props.router.pathname,
-              hasChild: false
+              // hasChild: false
             })
 
             // Add data to submenuActive variables
@@ -86,7 +86,7 @@ class AsideBodyComponent extends React.Component {
         // Add data to states variables
         states = this.addDataToObject(states, [index1], {
           active: menu.link === this.props.router.pathname,
-          hasChild: false
+          // hasChild: false
         })
       }
     })
@@ -130,6 +130,24 @@ class AsideBodyComponent extends React.Component {
   //   this.setState(states)
   // }
 
+  handleLinkClick = (selfRoute) => {
+    let states = this.state
+
+    
+      // Deactivate all links
+      for (const selfRoute in states) {
+        if (!states[selfRoute].hasChild) {
+          states[selfRoute].active = false
+        }
+      }
+
+      // Activate clicked link
+      states[selfRoute].active = true
+    
+
+    this.setState(states)
+  }
+
   addDataToObject = (object, identifier, value) => {
     return {
       ...object,
@@ -159,20 +177,20 @@ class AsideBodyComponent extends React.Component {
     })
 
     // Loop submenu elements to fix height data
-    this.submenuRefs.forEach(submenu => {
-      // Get submenu parent route
-      let parentRoute = submenu.getAttribute("data-route").split(",")
-      parentRoute.pop()
+    // this.submenuRefs.forEach(submenu => {
+    //   // Get submenu parent route
+    //   let parentRoute = submenu.getAttribute("data-route").split(",")
+    //   parentRoute.pop()
 
-      // Check whether the submenu has parents
-      if (parentRoute.length > 0) {
-        let selfheight = submenu.offsetHeight
-        let parentHeight = states[parentRoute].height
+    //   // Check whether the submenu has parents
+    //   if (parentRoute.length > 0) {
+    //     let selfheight = submenu.offsetHeight
+    //     let parentHeight = states[parentRoute].height
 
-        // Fix the element height
-        states[parentRoute].height = parentHeight - selfheight
-      }
-    })
+    //     // Fix the element height
+    //     states[parentRoute].height = parentHeight - selfheight
+    //   }
+    // })
 
     this.setState(states, () => {
       // Initialize custom scrollbar
@@ -248,8 +266,8 @@ class AsideBodyComponent extends React.Component {
                   icon={Icon ? <Icon /> : false}
                   addon={menu.addon}
                   bullet={menu.bullet}
-                  active={state.active}
-                  onClick={() => this.handleLinkClick(selfRoute, parentRoute)}
+                  // active={state.active}
+                  // onClick={() => this.handleLinkClick(selfRoute, parentRoute)}
                   innerRef={ref => this.linkRefs.push(ref)}
                   children={menu.title}
                 />
@@ -263,12 +281,10 @@ class AsideBodyComponent extends React.Component {
 }
 
 function AsideBodyMenuLink(props) {
-  const { hasChild, link, ...attributes } = props
+  const { link, ...attributes } = props
   const MenuLink = React.forwardRef((props, ref) => <Menu.Link {...props} innerRef={ref} />)
 
-  return hasChild ? (
-    <Menu.Link tag="button" {...attributes} caret toggle />
-  ) : (
+  return (
     <Link href={link} passHref>
       <MenuLink {...attributes} />
     </Link>
