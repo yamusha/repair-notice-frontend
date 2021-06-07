@@ -89,7 +89,7 @@ const login = () => {
             userStore.updateProfile(profileValue)
 
             // ส่งไปหน้าหลัก
-            router.push("/");
+            router.push("/admin");
           }
         });
       });

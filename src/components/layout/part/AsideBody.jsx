@@ -1,7 +1,7 @@
 
 import React, { useState, useContext } from "react";
 import { Aside, Menu } from "@panely/components"
-import { withRouter } from "next/router"
+import { withRouter, useRouter } from "next/router"
 import SimpleBar from "simplebar"
 import Link from "next/link"
 import MENU from "config/menu2.config"
@@ -220,8 +220,11 @@ class AsideBodyComponent extends React.Component {
             let selfRoute = [index1]
             let state = this.state[selfRoute]
             let show = false
-            
+            let active  = this.props.router.pathname === menu.link ? true : false;
 
+
+            
+            console.log(this.props.router.pathname)
             if(!menu.all) {
               if(menu.auth){
                 // console.log(menu.title, menu.auth);
@@ -267,6 +270,7 @@ class AsideBodyComponent extends React.Component {
                   addon={menu.addon}
                   bullet={menu.bullet}
                   // active={state.active}
+                  active={active}
                   // onClick={() => this.handleLinkClick(selfRoute, parentRoute)}
                   innerRef={ref => this.linkRefs.push(ref)}
                   children={menu.title}

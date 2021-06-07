@@ -144,15 +144,16 @@ const repairPage = ({ notices, notices1, notices2, notices3, page, total }) => {
 
                         <td className="px-1 py-1 border-b">
                           {/* BEGIN Form Group */}
-                          {notice.image && (
-                            <Form.Group row>
-                              <Col sm="8" lg="9" className="text-right">
+                          <Form.Group row>
+                              <Col sm="4"></Col>
+                              <Col sm="4" className="text-center">
                                 <Modal7
-                                  imgClick={notice.image.formats.medium.url}
+                                  imgClick={notice}
+                                  img={notice.image ? notice.image.formats.small.url : ''}
                                 />
                               </Col>
+                              <Col sm="4"></Col>
                             </Form.Group>
-                          )}
 
                           {/* END Form Group */}
                         </td>
@@ -269,11 +270,11 @@ export async function getServerSideProps({ query: { page = 1 } }) {
 
 class Modal7 extends React.Component {
   // Default state
-  state = { isOpen: false, img1: "" };
+  state = { isOpen: false, img1: "", title: "", description: "", name:"", phone: "" };
 
   // Handle modal toggle event
   toggle = () => {
-    this.setState({ isOpen: !this.state.isOpen, img1: this.props.imgClick });
+    this.setState({ isOpen: !this.state.isOpen, img1: this.props.img, title: this.props.imgClick.school.schoolname_th, description: this.props.imgClick.description, name: this.props.imgClick.name, phone: this.props.imgClick.phone});
   };
 
   render() {
@@ -281,16 +282,28 @@ class Modal7 extends React.Component {
     return (
       <>
         <Button variant="text-primary" onClick={this.toggle}>
-          <FontAwesomeIcon icon={SolidIcon.faImage} />
+          <FontAwesomeIcon icon={SolidIcon.faComments} />
         </Button>
 
         {/* BEGIN Modal */}
         <Modal centered isOpen={this.state.isOpen} toggle={this.toggle}>
-          <Modal.Header toggle={this.toggle}>ภาพประกอบ</Modal.Header>
+          <Modal.Header toggle={this.toggle}>รายละเอียด</Modal.Header>
           <Modal.Body>
+            <h6>{this.state.title}</h6>
+            <p>{this.state.description}</p>
+            <p>ผู้ประสานงาน {this.state.name} {this.state.phone}</p>
+            {
+              this.state.img1 && (
+                <>
+                <h6>ภาพประกอบ</h6>
             <p className="mb-0 text-center">
+              
               <img src={`${API_URL2}${this.state.img1}`} alt="" width={350} />
             </p>
+            </>
+              )
+            }
+            
           </Modal.Body>
         </Modal>
         {/* END Modal */}
